@@ -10,22 +10,22 @@
         >
     <Grid>
 
-        <Label Content="Ciąg znaków:" HorizontalAlignment="Left" FontSize="17" Margin="217,96,0,0" VerticalAlignment="Top" Foreground="White" />
-        <TextBox x:Name="tbWejscie" HorizontalAlignment="Center" Margin="0,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="17" Width="490" Height="85"/>
+        <Label Content="Ciąg znaków:" HorizontalAlignment="Left" FontSize="17" Margin="114,186,0,0" VerticalAlignment="Top" Foreground="White" />
+        <TextBox x:Name="tbWejscie" HorizontalAlignment="Center" Margin="0,112,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="17" Width="700" Height="180"/>
 
-        <Label Content="Wzorzec:" HorizontalAlignment="Left" Margin="355,214,0,0" VerticalAlignment="Top" FontSize="17" Foreground="White" />
-        <TextBox x:Name="tbWzorzec" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="262" FontSize="17" Height="51" Margin="0,205,0,0"/>
+        <Label Content="Wzorzec:" HorizontalAlignment="Left" Margin="352,328,0,0" VerticalAlignment="Top" FontSize="17" Foreground="White" />
+        <TextBox x:Name="tbWzorzec" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="262" FontSize="17" Height="51"/>
 
-        <Label Content="Wynik:" HorizontalAlignment="Left" Margin="168,534,0,0" VerticalAlignment="Top" FontSize="17" Foreground="White" />
-        <TextBox x:Name="tbWyjscie" HorizontalAlignment="Center" Margin="0,460,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="17" Width="700" Height="180"/>
+        <Label Content="Wynik:" HorizontalAlignment="Left" Margin="165,579,0,0" VerticalAlignment="Top" FontSize="17" Foreground="White" />
+        <TextBox x:Name="tbWyjscie" HorizontalAlignment="Center" Margin="0,550,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="17" Width="700" Height="90"/>
 
-        <Button x:Name="bttBF" Content="Brute Force" HorizontalAlignment="Left" Margin="125,337,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
+        <Button x:Name="bttBF" Content="Brute Force" HorizontalAlignment="Left" Margin="122,451,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" Click="bttBF_Click" />
 
-        <Button x:Name="bttKMP" Content="KMP" HorizontalAlignment="Left" Margin="372,337,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
+        <Button x:Name="bttKMP" Content="KMP" HorizontalAlignment="Left" Margin="369,451,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
 
-        <Button x:Name="bttBM" Content="Boyera-Moore'a" HorizontalAlignment="Left" Margin="620,337,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
+        <Button x:Name="bttBM" Content="Boyera-Moore'a" HorizontalAlignment="Left" Margin="628,451,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
 
-        <Button x:Name="bttRK" Content="Rabina-Karpa" HorizontalAlignment="Left" Margin="874,337,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
+        <Button x:Name="bttRK" Content="Rabina-Karpa" HorizontalAlignment="Left" Margin="871,451,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
 
 
     </Grid>

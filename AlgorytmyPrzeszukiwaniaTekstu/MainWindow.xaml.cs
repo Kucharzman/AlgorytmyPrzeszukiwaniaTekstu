@@ -24,5 +24,30 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
         {
             InitializeComponent();
         }
+
+        private void bttBF_Click(object sender, RoutedEventArgs e)
+        {
+            string ciag, wzorzec, wynik;
+            int dlugoscWz, licznik;
+
+            ciag = tbWejscie.Text;
+            wzorzec = tbWzorzec.Text;
+            dlugoscWz = wzorzec.Length;
+            wynik = "";
+            licznik = 0;
+
+            for (int i = 0; i < ciag.Length - dlugoscWz + 1; i++)
+            {
+                if( wzorzec == ciag.Substring(i, dlugoscWz))
+                {
+                    wynik += ciag.Substring(i, dlugoscWz);
+                    wynik += " ";
+                    licznik += 1;
+                }
+            }
+
+            tbWyjscie.Text += "Wzorzec w tekście znaleziono " + licznik.ToString() + " razy." + Environment.NewLine;
+            tbWyjscie.Text += wynik;
+        }
     }
 }
