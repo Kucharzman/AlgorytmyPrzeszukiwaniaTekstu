@@ -21,13 +21,13 @@
 
         <Button x:Name="bttBF" Content="Brute Force" HorizontalAlignment="Left" Margin="122,451,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" Click="bttBF_Click" />
 
-        <Button x:Name="bttKMP" Content="KMP" HorizontalAlignment="Left" Margin="369,451,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
+        <Button x:Name="bttKMP" Content="KMP" HorizontalAlignment="Left" Margin="369,451,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" Click="bttKMP_Click" />
 
         <Button x:Name="bttBM" Content="Boyera-Moore'a" HorizontalAlignment="Left" Margin="628,451,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
 
         <Button x:Name="bttRK" Content="Rabina-Karpa" HorizontalAlignment="Left" Margin="871,451,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
 
-        <Button Content="Wczytaj dane z pliku" HorizontalAlignment="Left" Margin="986,112,0,0" VerticalAlignment="Top" FontSize="15" Height="180" Width="144" Background="White" Click="Button_Click"/>
+        <Button x:Name="bttDataIn" Content="Wczytaj dane z pliku" HorizontalAlignment="Left" Margin="986,112,0,0" VerticalAlignment="Top" FontSize="15" Height="180" Width="144" Background="White" Click="bttDataIn_Click"/>
 
 
     </Grid>

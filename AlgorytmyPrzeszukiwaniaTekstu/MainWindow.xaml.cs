@@ -27,6 +27,7 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
             InitializeComponent();
         }
 
+//brute force
         private void bttBF_Click(object sender, RoutedEventArgs e)
         {
             string ciag, wzorzec, wynik;
@@ -47,11 +48,13 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
                 }
             }
 
-            tbWyjscie.Text += "Wzorzec w tekście znaleziono " + licznik.ToString() + " razy" + Environment.NewLine;
+            tbWyjscie.Text = "Wzorzec w tekście znaleziono " + licznik.ToString() + " razy" + Environment.NewLine;
             tbWyjscie.Text += wynik;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+//wczytywanie danych z pliku
+
+        private void bttDataIn_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofdDataIn = new OpenFileDialog();
             ofdDataIn.Title = "Wybierz plik tekstowy";
@@ -69,5 +72,95 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
                 tbWejscie.Text = fContent;
             }
         }
+
+//KMP
+
+        private void bttKMP_Click(object sender, RoutedEventArgs e)
+        {
+            string ciag = tbWejscie.Text;
+            string wzorzec = tbWzorzec.Text;
+
+            KMPAlgorithm(wzorzec, ciag);
+
+        }
+
+        void KMPAlgorithm(string wzr, string cng)
+        {
+            int lenWzor = wzr.Length; //wzor
+            int lenCiag = cng.Length; //ciag
+            int licznik = 0;
+            string wynik = "w indexach: ";
+
+
+            int[] lps = new int[lenWzor];
+            int j = 0;      // indeks dla wzr[]
+
+            erectLps(wzr, lenWzor, lps);
+
+            int i = 0; // indeks dla cng[]
+            while (i < lenCiag)
+            {
+                if (wzr[j] == cng[i])
+                {
+                    j++;
+                    i++;
+                }
+                if (j == lenWzor)
+                {
+                    //tbWyjscie.Text += "Znaleziona na " + (i - j).ToString();
+                    licznik++;
+                    wynik += i.ToString() + " ";
+
+                    j = lps[j - 1];
+                }
+
+                else if (i < lenCiag && wzr[j] != cng[i])
+                {
+                    if (j != 0)
+                        j = lps[j - 1];
+                    else
+                        i = i + 1;
+                }
+            }
+
+            tbWyjscie.Text = "Wzorzec w tekście znaleziono " + licznik.ToString() + " razy" + Environment.NewLine;
+            tbWyjscie.Text += wynik;
+        }
+
+        void erectLps(string wzr, int lenWzor, int[] lps)      //lps znaczy Longest Prefix Sufix
+        {
+
+            int len = 0;
+            int i = 1;
+            lps[0] = 0;
+
+
+            while (i < lenWzor)
+            {
+                if (wzr[i] == wzr[len])
+                {
+                    len++;
+                    lps[i] = len;
+                    i++;
+                }
+                else // (pat[i] != pat[len])
+                {
+                    if (len != 0)
+                    {
+                        len = lps[len - 1];
+                    }
+                    else // if (len == 0)
+                    {
+                        lps[i] = len;
+                        i++;
+                    }
+                }
+            }
+        }
+
+//next
+
+
+
     }
 }
