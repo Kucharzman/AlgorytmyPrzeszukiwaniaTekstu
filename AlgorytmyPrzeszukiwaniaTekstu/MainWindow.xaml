@@ -19,13 +19,13 @@
         <Label Content="Wynik:" HorizontalAlignment="Left" Margin="168,534,0,0" VerticalAlignment="Top" FontSize="17" Foreground="White" />
         <TextBox x:Name="tbWyjscie" HorizontalAlignment="Center" Margin="0,460,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="17" Width="700" Height="180"/>
 
-        <Button x:Name="bttBF" Content="Brute Force" HorizontalAlignment="Left" Margin="125,337,0,0" VerticalAlignment="Top" Height="70" Width="200" />
+        <Button x:Name="bttBF" Content="Brute Force" HorizontalAlignment="Left" Margin="125,337,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
 
-        <Button x:Name="bttKMP" Content="KMP" HorizontalAlignment="Left" Margin="372,337,0,0" VerticalAlignment="Top" Height="70" Width="200" />
+        <Button x:Name="bttKMP" Content="KMP" HorizontalAlignment="Left" Margin="372,337,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
 
-        <Button x:Name="bttBM" Content="Boyera-Moore'a" HorizontalAlignment="Left" Margin="620,337,0,0" VerticalAlignment="Top" Height="70" Width="200" />
+        <Button x:Name="bttBM" Content="Boyera-Moore'a" HorizontalAlignment="Left" Margin="620,337,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
 
-        <Button x:Name="bttRK" Content="Rabina-Karpa" HorizontalAlignment="Left" Margin="874,337,0,0" VerticalAlignment="Top" Height="70" Width="200" />
+        <Button x:Name="bttRK" Content="Rabina-Karpa" HorizontalAlignment="Left" Margin="874,337,0,0" VerticalAlignment="Top" Height="70" Width="200" Background="White" />
 
 
     </Grid>
