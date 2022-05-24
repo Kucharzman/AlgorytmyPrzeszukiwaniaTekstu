@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using System.IO;
 
 namespace AlgorytmyPrzeszukiwaniaTekstu
 {
@@ -48,6 +50,25 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
 
             tbWyjscie.Text += "Wzorzec w tekście znaleziono " + licznik.ToString() + " razy." + Environment.NewLine;
             tbWyjscie.Text += wynik;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofdDataIn = new OpenFileDialog();
+            ofdDataIn.Title = "Wybierz plik tekstowy";
+            ofdDataIn.Filter = "Pliki TXT(*.txt) | *.txt";
+
+            if ( ofdDataIn.ShowDialog() == true )
+            {
+                string fContent = "";
+                var fPath = ofdDataIn.FileName;
+                var fStream = ofdDataIn.OpenFile();
+
+                StreamReader reader = new StreamReader(fStream);
+
+                fContent = reader.ReadToEnd();
+                tbWejscie.Text = fContent;
+            }
         }
     }
 }
