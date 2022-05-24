@@ -35,20 +35,19 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
             ciag = tbWejscie.Text;
             wzorzec = tbWzorzec.Text;
             dlugoscWz = wzorzec.Length;
-            wynik = "";
+            wynik = "w indexach: ";
             licznik = 0;
 
             for (int i = 0; i < ciag.Length - dlugoscWz + 1; i++)
             {
                 if( wzorzec == ciag.Substring(i, dlugoscWz))
                 {
-                    wynik += ciag.Substring(i, dlugoscWz);
-                    wynik += " ";
+                    wynik += i.ToString() + " ";
                     licznik += 1;
                 }
             }
 
-            tbWyjscie.Text += "Wzorzec w tekście znaleziono " + licznik.ToString() + " razy." + Environment.NewLine;
+            tbWyjscie.Text += "Wzorzec w tekście znaleziono " + licznik.ToString() + " razy" + Environment.NewLine;
             tbWyjscie.Text += wynik;
         }
 
