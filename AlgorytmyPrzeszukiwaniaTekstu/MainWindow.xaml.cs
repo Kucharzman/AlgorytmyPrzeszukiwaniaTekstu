@@ -188,7 +188,7 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
 
             for (i = 0; i <= lenWzor; i++)
             {
-                Last[wzor[i] - ZNAKPOCZ] = i; 
+                Last[wzor[i] - ZNAKPOCZ] = i;
             }
 
             pozycja = 0;
@@ -224,21 +224,24 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
 
         private void bttRK_Click(object sender, RoutedEventArgs e)
         {
-            string wzor, ciag;
+            string wzorG, ciagG;
 
-            wzor = tbWzorzec.Text;
-            ciag = tbWejscie.Text;
+            wzorG = tbWzorzec.Text;
+            ciagG = tbWejscie.Text;
 
-            //tbWyjscie.Text += RabinKarpAlgorithm(ciag, wzor);
+            RabinKarpAlgorithm(ciagG, wzorG);
         }
 
 
         public void RabinKarpAlgorithm(string ciag, string wzor)
         {
-            string wynik;
+            string wynik = "";
+            int licznik = 0;
             ulong sigmaCiag = 0, sigmaWzor = 0, Q = 100007, D = 256;
 
-            for ( int i = 0; i < wzor.Length; i+=1 )
+            int i, j, k;
+
+            for ( i = 0; i < wzor.Length; i+=1 )
             {
                 sigmaCiag = (sigmaCiag * D + ciag[i]) % Q;
                 sigmaWzor = (sigmaWzor * D + ciag[i]) % Q;
@@ -246,9 +249,34 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
 
             if( sigmaCiag == sigmaWzor )
             {
-
+                wynik += "0" + " ";
+                licznik += 1;
             }
 
+            ulong pow = 1;
+
+            for ( k = 1; k <= wzor.Length - 1; k+=1 )
+            {
+                pow = (pow * D) % Q;
+            }
+
+            for ( j = 1; j <= ciag.Length - wzor.Length; j+=1 )
+            {
+                sigmaCiag = (sigmaCiag + Q - pow * ciag[j - 1] % Q) % Q;
+                sigmaCiag = (sigmaCiag * D + ciag[j + wzor.Length - 1]) % Q;
+
+                if ( sigmaCiag == sigmaWzor )
+                {
+                    if ( ciag.Substring(j,wzor.Length) == wzor )
+                    {
+                        wzor += j.ToString() + " ";
+                        licznik += 1;
+                    }
+                }
+            }
+
+            tbWyjscie.Text = "Wzorzec w tekście znaleziono " + licznik.ToString() + " razy" + Environment.NewLine;
+            tbWyjscie.Text += wynik;
         }
 
     }
