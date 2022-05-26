@@ -73,7 +73,7 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
             }
         }
 
-//KMP
+//Knuth-Morris-Pratt
 
         private void bttKMP_Click(object sender, RoutedEventArgs e)
         {
@@ -90,6 +90,8 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
             int lenCiag = cng.Length; //ciag
             int licznik = 0;
             string wynik = "w indexach: ";
+
+            int goryl = 0;
 
 
             int[] lps = new int[lenWzor];
@@ -109,7 +111,9 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
                 {
                     //tbWyjscie.Text += "Znaleziona na " + (i - j).ToString();
                     licznik++;
-                    wynik += i.ToString() + " ";
+
+                    goryl = i - lenWzor;
+                    wynik += goryl.ToString() + " ";
 
                     j = lps[j - 1];
                 }
@@ -158,9 +162,94 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
             }
         }
 
-//next
+//Boyer-Moore
+
+        private void bttBM_Click(object sender, RoutedEventArgs e)
+        {
+            const int ZNAKPOCZ = 65;    // kod pierwszego znaku alfabetu
+            const int ZNAKKON = 66;     // kod ostatniego znaku alfabetu
+
+            string wzor, ciag;
+            int lenWzor, lenCiag, i, j, pozycja;
+            int[] Last = new int[ZNAKKON-ZNAKPOCZ+1];
+
+            wzor = tbWzorzec.Text;
+            ciag = tbWejscie.Text;
+            lenWzor = wzor.Length;
+            lenCiag = ciag.Length;
+
+            string wynik = "";
+            int licznik = 0;
+
+            for ( i = 0; i<=ZNAKKON - ZNAKPOCZ; i++ )
+            {
+                Last[i] = -1;
+            }
+
+            for (i = 0; i <= lenWzor; i++)
+            {
+                Last[wzor[i] - ZNAKPOCZ] = i; 
+            }
+
+            pozycja = 0;
+            i = 0;
+
+            while( i <= lenCiag - lenWzor)
+            {
+                j = lenWzor - 1;
+                while ( (j > -1) && (wzor[j] == ciag[i+j]) )
+                {
+                    j--;
+                }
+                if (j == -1)
+                {
+                    //while ( pozycja < 1 )
+                    //{
+                            //do nothing basically :saxophone: :gorilla:
+                    //}
+                    wynik += i.ToString() + " ";
+                    licznik += 1;
+                }
+                else
+                {
+                    i += Math.Max(1, j - Last[ciag[i + j] - ZNAKPOCZ]);
+                }
+            }
+
+            tbWyjscie.Text = "Wzorzec w tekście znaleziono " + licznik.ToString() + " razy" + Environment.NewLine;
+            tbWyjscie.Text += wynik;
+        }
+
+//Rabin-Karp
+
+        private void bttRK_Click(object sender, RoutedEventArgs e)
+        {
+            string wzor, ciag;
+
+            wzor = tbWzorzec.Text;
+            ciag = tbWejscie.Text;
+
+            //tbWyjscie.Text += RabinKarpAlgorithm(ciag, wzor);
+        }
 
 
+        public void RabinKarpAlgorithm(string ciag, string wzor)
+        {
+            string wynik;
+            ulong sigmaCiag = 0, sigmaWzor = 0, Q = 100007, D = 256;
+
+            for ( int i = 0; i < wzor.Length; i+=1 )
+            {
+                sigmaCiag = (sigmaCiag * D + ciag[i]) % Q;
+                sigmaWzor = (sigmaWzor * D + ciag[i]) % Q;
+            }
+
+            if( sigmaCiag == sigmaWzor )
+            {
+
+            }
+
+        }
 
     }
 }
