@@ -162,9 +162,130 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
             }
         }
 
-//Boyer-Moore
+        //Boyer-Moore
 
         private void bttBM_Click(object sender, RoutedEventArgs e)
+        {
+            string wzor = tbWzorzec.Text;
+            string ciag = tbWejscie.Text;
+
+            string outText = BoyerMooreAlgorithm(ciag,wzor);
+
+            tbWyjscie.Text = "Znaleziono w indexach: ";
+            tbWyjscie.Text += outText;
+        }
+
+        public static string BoyerMooreAlgorithm(string str, string pat)    // string   &   pattern
+        {
+            List<int> retVal = new List<int>();
+            int m = pat.Length;
+            int n = str.Length;
+
+            int[] badChar = new int[256];
+
+            BadCharHeuristic(pat, m, ref badChar);
+
+            int s = 0;
+            while (s <= (n - m))
+            {
+                int j = m - 1;
+
+                while (j >= 0 && pat[j] == str[s + j])
+                    --j;
+
+                if (j < 0)
+                {
+                    retVal.Add(s);
+                    s += (s + m < n) ? m - badChar[str[s + m]] : 1;
+                }
+                else
+                {
+                    s += Math.Max(1, j - badChar[str[s + j]]);
+                }
+            }
+
+            string goryl = string.Join(" ", retVal);
+
+            return goryl;
+        }
+
+        private static void BadCharHeuristic(string str, int size, ref int[] badChar)
+        {
+            int i;
+
+            for (i = 0; i < 256; i++)
+                badChar[i] = -1;
+
+            for (i = 0; i < size; i++)
+                badChar[(int)str[i]] = i;
+        }
+
+
+        //Rabin-Karp
+
+        private void bttRK_Click(object sender, RoutedEventArgs e)
+        {
+            string wzorG, ciagG;
+
+            wzorG = tbWzorzec.Text;
+            ciagG = tbWejscie.Text;
+
+            RabinKarpAlgorithm(ciagG, wzorG);
+        }
+
+
+        public void RabinKarpAlgorithm(string ciag, string wzor)
+        {
+            string wynik = "w indexach: ";
+            int licznik = 0;
+            ulong sigmaCiag = 0, sigmaWzor = 0, Q = 100007, D = 256;
+
+            int i, j, k;
+
+            for ( i = 0; i < wzor.Length; i+=1 )
+            {
+                sigmaCiag = (sigmaCiag * D + ciag[i]) % Q;
+                sigmaWzor = (sigmaWzor * D + ciag[i]) % Q;
+            }
+
+            if( sigmaCiag == sigmaWzor )
+            {
+                wynik += "0" + " ";
+                licznik += 1;
+            }
+
+            ulong pow = 1;
+
+            for ( k = 1; k <= wzor.Length - 1; k+=1 )
+            {
+                pow = (pow * D) % Q;
+            }
+
+            for ( j = 1; j <= ciag.Length - wzor.Length; j+=1 )
+            {
+                sigmaCiag = (sigmaCiag + Q - pow * ciag[j - 1] % Q) % Q;
+                sigmaCiag = (sigmaCiag * D + ciag[j + wzor.Length - 1]) % Q;
+
+                if ( sigmaCiag == sigmaWzor )
+                {
+                    if ( ciag.Substring(j,wzor.Length) == wzor )
+                    {
+                        wynik += j.ToString() + " ";
+                        licznik += 1;
+                    }
+                }
+            }
+
+            tbWyjscie.Text = "Wzorzec w tekście znaleziono " + licznik.ToString() + " razy" + Environment.NewLine;
+            tbWyjscie.Text += wynik;
+        }
+
+    }
+}
+
+//  smietnik
+/*  Booyer-Moore ver1
+    private void bttBM_Click(object sender, RoutedEventArgs e)
         {
             const int ZNAKPOCZ = 65;    // kod pierwszego znaku alfabetu
             const int ZNAKKON = 66;     // kod ostatniego znaku alfabetu
@@ -219,65 +340,4 @@ namespace AlgorytmyPrzeszukiwaniaTekstu
             tbWyjscie.Text = "Wzorzec w tekście znaleziono " + licznik.ToString() + " razy" + Environment.NewLine;
             tbWyjscie.Text += wynik;
         }
-
-//Rabin-Karp
-
-        private void bttRK_Click(object sender, RoutedEventArgs e)
-        {
-            string wzorG, ciagG;
-
-            wzorG = tbWzorzec.Text;
-            ciagG = tbWejscie.Text;
-
-            RabinKarpAlgorithm(ciagG, wzorG);
-        }
-
-
-        public void RabinKarpAlgorithm(string ciag, string wzor)
-        {
-            string wynik = "";
-            int licznik = 0;
-            ulong sigmaCiag = 0, sigmaWzor = 0, Q = 100007, D = 256;
-
-            int i, j, k;
-
-            for ( i = 0; i < wzor.Length; i+=1 )
-            {
-                sigmaCiag = (sigmaCiag * D + ciag[i]) % Q;
-                sigmaWzor = (sigmaWzor * D + ciag[i]) % Q;
-            }
-
-            if( sigmaCiag == sigmaWzor )
-            {
-                wynik += "0" + " ";
-                licznik += 1;
-            }
-
-            ulong pow = 1;
-
-            for ( k = 1; k <= wzor.Length - 1; k+=1 )
-            {
-                pow = (pow * D) % Q;
-            }
-
-            for ( j = 1; j <= ciag.Length - wzor.Length; j+=1 )
-            {
-                sigmaCiag = (sigmaCiag + Q - pow * ciag[j - 1] % Q) % Q;
-                sigmaCiag = (sigmaCiag * D + ciag[j + wzor.Length - 1]) % Q;
-
-                if ( sigmaCiag == sigmaWzor )
-                {
-                    if ( ciag.Substring(j,wzor.Length) == wzor )
-                    {
-                        wzor += j.ToString() + " ";
-                        licznik += 1;
-                    }
-                }
-            }
-
-            tbWyjscie.Text = "Wzorzec w tekście znaleziono " + licznik.ToString() + " razy" + Environment.NewLine;
-            tbWyjscie.Text += wynik;
-        }
-
-    }
-}
+ */
